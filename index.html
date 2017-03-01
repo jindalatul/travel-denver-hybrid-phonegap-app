@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	
+		<meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+		
+		<meta http-equiv="Content-Security-Policy" content="
+        default-src 'self' data: gap:
+             https://*.gstatic.com http://icons.wxug.com https://*.googleapis.com http://*.googleapis.com https://*.google.com https://*.googleusercontent.com https://*.facebook.com https://facebook.com;
+        script-src 'self' 'unsafe-inline' 'unsafe-eval'
+            https://*.gstatic.com https://*.googleapis.com http://*.googleapis.com http://api.wunderground.com;
+        style-src 'self' 'unsafe-inline';
+        media-src https://*.gstatic.com https://ssl.gstatic.com http://icons.wxug.com https://maps.gstatic.com https://csi.gstatic.com;">
+
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+	
+	<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+	
+    <link rel="stylesheet" href="css/themes/MyTheme.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+</head>
+<body>
+
+<div data-role="page" id="homepage">
+	
+	<div data-role="header">
+		<h1>Homepage</h1>
+	  </div>
+
+  <div data-role="main" class="ui-content"  style="height:100%;">
+    <p align="center"><img style="height:120px;" src="images/main-logo.png" /></p>
+	   <div data-role="controlgroup" data-type="vertical">
+				 <a id="places_to_stay" class="ui-btn">Popular Hotels</a>
+				 <a id="places_to_eat" class="ui-btn">Popular Restaurants</a>
+				 <a id="night_club" class="ui-btn">Popular Clubs</a>
+				 <a id="art_gallery" class="ui-btn">Art Galleries</a>
+				 <a id="weather" class="ui-btn">Denver Weather</a>
+				 <a id="news_articles" class="ui-btn">Denver Local News</a>
+				 <a id="contact" class="ui-btn">Contact Denver Tourism</a>
+		</div>
+
+  </div>
+
+  <div data-role="footer">
+    <h1>Created by Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+
+<div data-role="page" id="content-hotels">
+  <div data-role="header">
+    <h1>Popular Hotels in Denver</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+	<ul  id="hotels" class="hotels-list" data-role="listview" xdata-filter="true"></ul>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+
+<div data-role="page" id="content-restaurants" data-ajax="false">
+  <div data-role="header">
+    <h1>Popular Restaurants in Denver</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+	<ul  id="restaurants" class="restaurants-list" data-role="listview" xdata-filter="true"></ul>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+
+<div data-role="page" id="content-nightclubs" data-ajax="false">
+  <div data-role="header">
+    <h1>Popular Night Clubs</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+	<ul  id="nightclubs" class="nightclubs-list" data-role="listview" xdata-filter="true"></ul>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div>
+
+<div data-role="page" id="content-attractions" data-ajax="false">
+  <div data-role="header">
+    <h1>Art Galleries in Denver</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+	<ul  id="attractions" class="attractions-list" data-role="listview" xdata-filter="true"></ul>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div>
+
+<div data-role="page" id="content-weather">
+  <div data-role="header">
+	<h1>Weather in Denver</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+		
+		<h3>Forcast for next 3 days</h3>
+		<div style="float:left;">
+			<div id="weather_data"></div>
+		</div>
+		
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+
+
+<div data-role="page" id="place-map" data-ajax="false">
+  <div data-role="header">
+    <h1 id="place_name"></h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+	<div data-role="main" class="ui-content" style="height:100%;">
+				<div id="locationDetailsMap" style="height:500px; width:500px; border: 1px solid red;." ></div>
+				<input type="hidden" id="location_id" value="" />
+	</div>
+	
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div>
+
+<div data-role="page" id="place-details-data" data-ajax="false">
+  <div data-role="header">
+    <h1 id="place_category">Place Details</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+	<input type="hidden" id="place_url" name="place_url" />
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+	<div id="content_about_place">
+		<h2 id="place_name_about_page"></h2>
+		<div id="place_main_pic_about_page" style="">
+		</div>
+			<div style="width:100%">
+				<div>
+				
+				<table>
+				<tr><td>Address <td></td><td id="place_address_about_page"></td></tr>
+				<tr><td>Phone <td><td id="place_phone_about_page"></td></tr>
+				<tr><td>Visit <td><td id="place_website_about_page"></td></tr>				
+				</table>
+				</div>
+				<div>
+				<table>
+				<tr><td>Star Ratings <td></td><td id="place_star_rating_about_page"></td></tr>
+				<tr><td>Average Price <td><td id="place_average_price_about_page"></td></tr>
+				</table>
+				</div>
+				<div id="place_useful_links_about_page"></div>
+			</div>
+			<div style="clear:both"></div>
+			<div style="width:100%;" id="place_reviews_about_page">
+			</div>
+	</div>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div>
+
+
+<div data-role="page" id="content-local-news">
+  <div data-role="header">
+	<h1 id="article-feed-title"></h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+		<div id="articles-rss-feeds"></div>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+
+<div data-role="page" id="credits-page">
+  <div data-role="header">
+	<h1>Credits and Resources</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+		<div>
+			Application developed by Atul Jindal student at Denver University.<br>
+			Location Data is taken from Google Places JavaScript API<br>
+			Weather Data is taken from wunderground.com API<br>
+		</div>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+
+<div data-role="page" id="contact-page">
+  <div data-role="header">
+	<h1>Contact</h1>
+	<a id="home_menu" class="ui-btn">Main Menu</a>
+  </div>
+
+  <div data-role="main" class="ui-content" style="height:100%;">
+		<div>
+			<h3>Denver Tourism</h3>
+			1555 California St, Suite 300<br>
+			Denver, CO 80202<br><br>
+			Toll Free 1-800-233-6837<br>
+			Local (303) 892-1112<br>
+			Website www.denver.org
+			<a id = "share_button" onclick="shareFacebookLike();">Share Now</a>
+		</div>
+  </div>
+
+  <div data-role="footer">
+    <h1>Created By Atul Jindal</h1>
+	<p align="center"><a id="credits" href="javaScript:void(0);">Credits</a></p>
+  </div>
+</div> 
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
+
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+<script src="js/map.hotels.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/articles-rss-feeds.js"></script>
+<script src="js/social.js"></script>
+
+<script src="js/index.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
+
